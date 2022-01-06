@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.18333333333333332" />
+        <entry key="../dataproperti/app/src/main/res/layout/activity_main.xml" value="0.16843971631205673" />
+        <entry key="app/src/main/res/drawable-v24/sidebarbg.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_fab_add.xml" value="0.13055555555555556" />
+        <entry key="app/src/main/res/drawable/toolbaraddbg.xml" value="0.13055555555555556" />
+        <entry key="app/src/main/res/font/roboto.xml" value="0.37407407407407406" />
+        <entry key="app/src/main/res/font/roboto_light.xml" value="0.37407407407407406" />
+        <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.23159303882195448" />
+        <entry key="app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.13018741633199465" />
+        <entry key="app/src/main/res/layout-w1240dp/input_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.24453551912568305" />
+        <entry key="app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_change_pass.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.16296296296296298" />
+        <entry key="app/src/main/res/layout/activity_info_lokasi.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_info_penawaran.xml" value="0.16843971631205673" />
+        <entry key="app/src/main/res/layout/activity_info_properti.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_info_properti2.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.3242753623188406" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_main_submit.xml" value="0.2015625" />
+        <entry key="app/src/main/res/layout/activity_photo.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_review.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_scrolling.xml" value="0.16576086956521738" />
+        <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.3242753623188406" />
+        <entry key="app/src/main/res/layout/activity_signin.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.36041666666666666" />
+        <entry key="app/src/main/res/layout/activity_user_confirmation.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/app_bar_dashboard.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/content_dashboard.xml" value="0.625" />
+        <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.16576086956521738" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.10643115942028986" />
+        <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.3242753623188406" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.10643115942028986" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_scrolling.xml" value="0.1752786220871327" />
+        <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/infopen.xml" value="0.1752786220871327" />
+        <entry key="app/src/main/res/layout/input_item.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/layout_admin_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/layout_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/nav_header_dashboard.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/scroll_infolok.xml" value="0.1752786220871327" />
+        <entry key="app/src/main/res/layout/scroll_infopen.xml" value="0.1752786220871327" />
+        <entry key="app/src/main/res/layout/scroll_infoprop.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/scroll_infoprop2.xml" value="0.1752786220871327" />
+        <entry key="app/src/main/res/layout/scroll_photo.xml" value="0.1752786220871327" />
+        <entry key="app/src/main/res/layout/scroll_review.xml" value="0.22474829490094186" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2015625" />
+        <entry key="app/src/main/res/menu/dashboard.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_scrolling.xml" value="0.20260416666666667" />
+        <entry key="app/src/main/res/menu/options_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/options_menu_admin.xml" value="0.3388888888888889" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="Embedded JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
