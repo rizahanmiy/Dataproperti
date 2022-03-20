@@ -13,7 +13,6 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // TODO Auto-generated method stub super.onCreate(savedInstanceState);
         Thread timerThread = new Thread() {
             public void run() {
                 try {
@@ -34,7 +33,7 @@ public class Splash extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() { // TODO Auto-generated method stub
+    protected void onPause() {
         super.onPause();
         finish();
 
