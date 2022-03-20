@@ -174,6 +174,7 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return list.size();
     }
 
+    // TODO: Download to Excel File bug Fix for all SDK
     private void download(){
         FirebaseAuth fAuth = FirebaseAuth.getInstance();
         fStore      = FirebaseFirestore.getInstance();
