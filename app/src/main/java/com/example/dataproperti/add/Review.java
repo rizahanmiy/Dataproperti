@@ -1,9 +1,5 @@
 package com.example.dataproperti.add;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,10 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dataproperti.MainActivity;
-import com.example.dataproperti.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.dataproperti.Cloud.DAODatprop;
 import com.example.dataproperti.Cloud.Datprop;
+import com.example.dataproperti.MainActivity;
+import com.example.dataproperti.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -48,9 +48,119 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class Review extends AppCompatActivity{
+public class Review extends AppCompatActivity {
 
-      //Firebase
+    /* Tanggal */
+    private final static Locale IDNA = new Locale("in", "ID");
+    /* Database Key */
+    //Informasi Lokasi
+    private static final String KEY_KOORDINAT = "koordinat";
+    private static final String KEY_ALAMAT = "alamat";
+    private static final String KEY_DESA = "desa";
+    private static final String KEY_KELURAHAN = "kelurahan";
+    private static final String KEY_KECAMATAN = "kecamatan";
+    private static final String KEY_KABUPATEN = "kabupaten";
+    private static final String KEY_KOTA = "kota";
+    private static final String KEY_PROVINSI = "provinsi";
+    private static final String KEY_TANGGAL = "Tanggal";
+    //Informasi Jual Sewa
+    private static final String KEY_JENISPRO = "Jenis Properti";
+    private static final String KEY_KONDPEN = "Kondisi Penawaran";
+
+    /*    *//* Location *//*
+    LocationManager locationManager;
+    FusedLocationProviderClient fusedLocationProviderClient;*/
+    private static final String KEY_HARGAPEN = "Harga";
+    private static final String KEY_MULAIDIT = "Mulai di Tawarkan";
+    private static final String KEY_NAMASUMBER = "Nama Sumber Data";
+    private static final String KEY_TELEPON = "Telepon";
+    //informasi Properti
+    //A.
+    private static final String KEY_JENISTAN = "Jenis Tanah";
+    private static final String KEY_LEPOTAN = "Letak atau Posisi Tanah";
+    private static final String KEY_LEDEMUKA = "Lebar Depan atau Muka";
+    private static final String KEY_TOPOGRAF = "Topografi atau Kontur Tanah";
+    private static final String KEY_ELEVASI = "Tinggi Permukaan Tanah Terhadap Jalan atau Elevasi";
+    private static final String KEY_LEBJADE = "Lebar Jalan Depan";
+    //Button tomboltampil;
+    private static final String KEY_JENPERJ = "Jenis Perkerasan Jalan";
+    private static final String KEY_KONDJALA = "Kondisi Jalan";
+    private static final String KEY_LINGSEKI = "Lingkungan Sekitar";
+    private static final String KEY_BENTUKTAPA = "Bentuk Tapak Tanah";
+    private static final String KEY_LUASTAN = "Luas Tanah";
+    private static final String KEY_LEGALITAS = "Legalitas atau Dokumen Tanah";
+    //B.
+    private static final String KEY_TIPEBAN = "Tipe Bangunan";
+    private static final String KEY_JUMLALA = "Jumlah Lantai";
+    private static final String KEY_JARDINTE = "Jarak Dinding Terluar ke Jalan";
+    private static final String KEY_FUNGBANG = "Fungsi Bangunan";
+    private static final String KEY_LUASBANG = "Luas Bangunan";
+    private static final String KEY_TAHUNDIBAN = "Tahun Dibangun";
+    private static final String KEY_IMB = "IMB";
+    private static final String KEY_TAHUNRENOV = "Tahun Renovasi";
+    //C.
+    private static final String KEY_PONDASI = "Pondasi";
+    private static final String KEY_STRUKTUR = "Struktur";
+    private static final String KEY_RANGKAATAP = "Rangka Atap";
+    private static final String KEY_PENUTUPAT = "Penutup Atap";
+    private static final String KEY_PLAFON = "Plafon";
+    private static final String KEY_DINDING = "Dinding";
+    private static final String KEY_PINTUJEN = "Pintu dan Jendela";
+    private static final String KEY_LANTAI = "Lantai";
+    private static final String KEY_KAPLISTRIK = "Kapasitas Listrik";
+    private static final String KEY_SUMBERAIRB = "Sumber Air Bersih";
+    private static final String KEY_TELEPHONE = "Telephone";
+    private static final String KEY_AC = "Air Conditioning atau AC";
+    //D.
+    private static final String KEY_PAGAR = "Pagar";
+    private static final String KEY_PERKERASAN = "Perkerasan";
+    private static final String KEY_KANOPI = "Kanopi";
+    //E.
+    private static final String KEY_KETERLAINN = "Keterangan Lainnya";
+    //F. Foto
+    private static final String KEY_FOTODEPAN = "Foto Depan";
+    private static final String KEY_FOTODALAM = "Foto Dalam";
+    private static final String KEY_FOTODIJUAL = "Foto Dijual";
+    private static final String KEY_FOTOJALAN = "Foto Jalan";
+    // Camera
+    private final int CAMERA = 1;
+    Datprop dtp_edit;
+    String timestamp, timestampkey;
+    TextView timeid;
+    /* Layout */
+    //Informasi Lokasi
+    TextView Koordinat, Alamat, Desa, Kelurahan, Kecamatan, Kabupaten, Kota, Provinsi;
+    //Informasi Jual Sewa
+    TextView HargaPen, MulaiDit, NamaSumber, Telepon;
+    //Informasi Properti
+    // A.Tanah
+    TextView LebarDepan, LebarJalanDepan,
+            LuasTanah;
+    // B.Bangunan
+    TextView JarakDindingKejalan, FungsiBangunan, LuasBangunan,
+            TahunDibangun, LegalitasBangunan, TahunRenovasi;
+    // C. Spesifikasi Bangunan
+    TextView KapasitasListrik, Telephone, AirConditioning;
+    // D. Sarana Pelengkap
+    TextView Pagar, Perkerasan, Kanopi;
+    // E. Keterangan Lainnya
+    TextView KeteranganLainnya;
+    TextView PilihProp, KondisiPen, JenisTanah, LetakTanah, Topografi, TinggiPermukaan,
+            JenisPerkerasanJalan, KondisiJalan, LingkunganSekitar, BentukTapakTanah,
+            LegalitasDokumenTanah, TipeBangunan, JumlahLantai, Pondasi, Struktur,
+            RangkaAtap, PenutupAtap, Plafon, Dinding, PintuJendela, Lantai, SumberAirBersih;
+    Button submit, back;
+    /*      Photo Intent        */
+    ImageView fotodepan, fotojalan, fotodalam, fotodijual, fotolain, fotolain2;
+    // Bitmap
+    Bitmap fotodepanthm, fotojalanthm, fotodalamthm, fotodijualthm, fotolainthm, fotolainthm2;
+    Task<Uri> fotodepanuri;
+    Task<Uri> fotojalanuri;
+    Task<Uri> fotodalamuri;
+    Task<Uri> fotodijualuri;
+    Task<Uri> fotolainuri;
+    Task<Uri> fotolainuri2;
+    //Firebase
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private StorageReference sStore;
@@ -60,161 +170,38 @@ public class Review extends AppCompatActivity{
     private String username;
     private FirebaseAnalytics Analytics;
     private FirebaseDatabase fRealData;
-    Datprop dtp_edit;
-    String timestamp, timestampkey;
-    TextView timeid;
-
-/*    *//* Location *//*
-    LocationManager locationManager;
-    FusedLocationProviderClient fusedLocationProviderClient;*/
-
-    /* Tanggal */
-    private final static Locale IDNA = new Locale("in", "ID");
-
-    /* Layout */
-    //Informasi Lokasi
-    TextView Koordinat, Alamat, Desa, Kelurahan, Kecamatan, Kabupaten, Kota, Provinsi;
-
-    //Informasi Jual Sewa
-    TextView HargaPen, MulaiDit, NamaSumber, Telepon;
-
-    //Informasi Properti
-    // A.Tanah
-    TextView LebarDepan, LebarJalanDepan,
-            LuasTanah;
-
-    // B.Bangunan
-    TextView JarakDindingKejalan, FungsiBangunan, LuasBangunan,
-            TahunDibangun, LegalitasBangunan, TahunRenovasi;
-
-    // C. Spesifikasi Bangunan
-    TextView KapasitasListrik, Telephone, AirConditioning;
-
-    // D. Sarana Pelengkap
-    TextView Pagar, Perkerasan, Kanopi;
-
-    // E. Keterangan Lainnya
-    TextView KeteranganLainnya;
-
-    TextView PilihProp, KondisiPen, JenisTanah, LetakTanah, Topografi, TinggiPermukaan,
-            JenisPerkerasanJalan, KondisiJalan, LingkunganSekitar, BentukTapakTanah,
-            LegalitasDokumenTanah, TipeBangunan, JumlahLantai, Pondasi, Struktur,
-            RangkaAtap, PenutupAtap, Plafon, Dinding, PintuJendela, Lantai, SumberAirBersih;
-
-    Button submit, back;
-    //Button tomboltampil;
-
-    /*      Photo Intent        */
-    ImageView fotodepan, fotojalan, fotodalam, fotodijual, fotolain, fotolain2;
-    // Camera
-    private final int CAMERA = 1;
     private int clickImage;
-    // Bitmap
-    Bitmap fotodepanthm, fotojalanthm, fotodalamthm, fotodijualthm, fotolainthm, fotolainthm2;
-    Task<Uri> fotodepanuri;
-    Task<Uri> fotojalanuri;
-    Task<Uri> fotodalamuri;
-    Task<Uri> fotodijualuri;
-    Task<Uri> fotolainuri;
-    Task<Uri> fotolainuri2;
-
-
-    /* Database Key */
-    //Informasi Lokasi
-    private static final String KEY_KOORDINAT   = "koordinat";
-    private static final String KEY_ALAMAT      = "alamat";
-    private static final String KEY_DESA        = "desa";
-    private static final String KEY_KELURAHAN   = "kelurahan";
-    private static final String KEY_KECAMATAN   = "kecamatan";
-    private static final String KEY_KABUPATEN   = "kabupaten";
-    private static final String KEY_KOTA        = "kota";
-    private static final String KEY_PROVINSI    = "provinsi";
-    private static final String KEY_TANGGAL     = "Tanggal";
-    //Informasi Jual Sewa
-    private static final String KEY_JENISPRO   = "Jenis Properti";
-    private static final String KEY_KONDPEN    = "Kondisi Penawaran";
-    private static final String KEY_HARGAPEN   = "Harga";
-    private static final String KEY_MULAIDIT   = "Mulai di Tawarkan";
-    private static final String KEY_NAMASUMBER = "Nama Sumber Data";
-    private static final String KEY_TELEPON    = "Telepon";
-    //informasi Properti
-    //A.
-    private static final String KEY_JENISTAN   = "Jenis Tanah";
-    private static final String KEY_LEPOTAN    = "Letak atau Posisi Tanah";
-    private static final String KEY_LEDEMUKA   = "Lebar Depan atau Muka";
-    private static final String KEY_TOPOGRAF   = "Topografi atau Kontur Tanah";
-    private static final String KEY_ELEVASI    = "Tinggi Permukaan Tanah Terhadap Jalan atau Elevasi";
-    private static final String KEY_LEBJADE    = "Lebar Jalan Depan";
-    private static final String KEY_JENPERJ    = "Jenis Perkerasan Jalan";
-    private static final String KEY_KONDJALA   = "Kondisi Jalan";
-    private static final String KEY_LINGSEKI   = "Lingkungan Sekitar";
-    private static final String KEY_BENTUKTAPA = "Bentuk Tapak Tanah";
-    private static final String KEY_LUASTAN    = "Luas Tanah";
-    private static final String KEY_LEGALITAS  = "Legalitas atau Dokumen Tanah";
-    //B.
-    private static final String KEY_TIPEBAN    = "Tipe Bangunan";
-    private static final String KEY_JUMLALA    = "Jumlah Lantai";
-    private static final String KEY_JARDINTE   = "Jarak Dinding Terluar ke Jalan";
-    private static final String KEY_FUNGBANG   = "Fungsi Bangunan";
-    private static final String KEY_LUASBANG   = "Luas Bangunan";
-    private static final String KEY_TAHUNDIBAN = "Tahun Dibangun";
-    private static final String KEY_IMB        = "IMB";
-    private static final String KEY_TAHUNRENOV = "Tahun Renovasi";
-    //C.
-    private static final String KEY_PONDASI    = "Pondasi";
-    private static final String KEY_STRUKTUR   = "Struktur";
-    private static final String KEY_RANGKAATAP = "Rangka Atap";
-    private static final String KEY_PENUTUPAT  = "Penutup Atap";
-    private static final String KEY_PLAFON     = "Plafon";
-    private static final String KEY_DINDING    = "Dinding";
-    private static final String KEY_PINTUJEN   = "Pintu dan Jendela";
-    private static final String KEY_LANTAI     = "Lantai";
-    private static final String KEY_KAPLISTRIK = "Kapasitas Listrik";
-    private static final String KEY_SUMBERAIRB = "Sumber Air Bersih";
-    private static final String KEY_TELEPHONE  = "Telephone";
-    private static final String KEY_AC         = "Air Conditioning atau AC";
-    //D.
-    private static final String KEY_PAGAR      = "Pagar";
-    private static final String KEY_PERKERASAN = "Perkerasan";
-    private static final String KEY_KANOPI     = "Kanopi";
-    //E.
-    private static final String KEY_KETERLAINN = "Keterangan Lainnya";
-    //F. Foto
-    private static final String KEY_FOTODEPAN   = "Foto Depan";
-    private static final String KEY_FOTODALAM   = "Foto Dalam";
-    private static final String KEY_FOTODIJUAL  = "Foto Dijual";
-    private static final String KEY_FOTOJALAN   = "Foto Jalan";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
-        View includelayout      = findViewById(R.id.input_scroll);
+        View includelayout = findViewById(R.id.input_scroll);
 
-         //Firebase
-        fAuth       = FirebaseAuth.getInstance();
-        fStore      = FirebaseFirestore.getInstance();
-        fUser       = fAuth.getCurrentUser();
-        mbase       = FirebaseDatabase.getInstance().getReference(fAuth.getUid());
-        sStore      = FirebaseStorage.getInstance().getReference().child("Data Properti");
-        username    = fUser.getDisplayName();
+        //Firebase
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        fUser = fAuth.getCurrentUser();
+        mbase = FirebaseDatabase.getInstance().getReference(fAuth.getUid());
+        sStore = FirebaseStorage.getInstance().getReference().child("Data Properti");
+        username = fUser.getDisplayName();
         //username.toString().trim();
-        email    = fUser.getEmail();
+        email = fUser.getEmail();
 
         /* Location */
         //fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
 
-        timestamp    = Timestamp.now().toString();
+        timestamp = Timestamp.now().toString();
 
 
         /*      Photo Intent        */
-        fotodepan       = findViewById(R.id.foto_depan_review);
-        fotojalan       = findViewById(R.id.foto_jalan_review);
-        fotodalam       = findViewById(R.id.foto_dalam_review);
-        fotodijual      = findViewById(R.id.foto_dijual_review);
-        fotolain        = findViewById(R.id.foto_lain_review);
-        fotolain2       = findViewById(R.id.foto_lain2_review);
+        fotodepan = findViewById(R.id.foto_depan_review);
+        fotojalan = findViewById(R.id.foto_jalan_review);
+        fotodalam = findViewById(R.id.foto_dalam_review);
+        fotodijual = findViewById(R.id.foto_dijual_review);
+        fotolain = findViewById(R.id.foto_lain_review);
+        fotolain2 = findViewById(R.id.foto_lain2_review);
         //fototambahan    = findViewById(R.id.foto_tambahan);
 
         //requestMultiplePermissions();
@@ -237,81 +224,80 @@ public class Review extends AppCompatActivity{
         });*/
 
         //Informasi Lokasi
-        Koordinat       =includelayout.findViewById(R.id.koordinat_review);
-        Alamat          =includelayout.findViewById(R.id.alamat_review);
-        Desa            =includelayout.findViewById(R.id.desa_review);
-        Kelurahan       =includelayout.findViewById(R.id.kelurahan_review);
-        Kecamatan       =includelayout.findViewById(R.id.kecamatan_review);
-        Kabupaten       =includelayout.findViewById(R.id.kabupaten_review);
-        Kota            =includelayout.findViewById(R.id.kota_review);
-        Provinsi        =includelayout.findViewById(R.id.provinsi_review);
+        Koordinat = includelayout.findViewById(R.id.koordinat_review);
+        Alamat = includelayout.findViewById(R.id.alamat_review);
+        Desa = includelayout.findViewById(R.id.desa_review);
+        Kelurahan = includelayout.findViewById(R.id.kelurahan_review);
+        Kecamatan = includelayout.findViewById(R.id.kecamatan_review);
+        Kabupaten = includelayout.findViewById(R.id.kabupaten_review);
+        Kota = includelayout.findViewById(R.id.kota_review);
+        Provinsi = includelayout.findViewById(R.id.provinsi_review);
 
         //Informasi Jual & Sewa
-        PilihProp       =includelayout.findViewById(R.id.properti_review);
-        KondisiPen      =includelayout.findViewById(R.id.kondisi_penawaran_review);
-        HargaPen        =includelayout.findViewById(R.id.harga_penawaran_review);
-        MulaiDit        =includelayout.findViewById(R.id.mulai_ditawarkan_review);
-        NamaSumber      =includelayout.findViewById(R.id.nama_sumber_review);
-        Telepon         =includelayout.findViewById(R.id.telepon_review);
+        PilihProp = includelayout.findViewById(R.id.properti_review);
+        KondisiPen = includelayout.findViewById(R.id.kondisi_penawaran_review);
+        HargaPen = includelayout.findViewById(R.id.harga_penawaran_review);
+        MulaiDit = includelayout.findViewById(R.id.mulai_ditawarkan_review);
+        NamaSumber = includelayout.findViewById(R.id.nama_sumber_review);
+        Telepon = includelayout.findViewById(R.id.telepon_review);
 
         //Informasi Properti
         // A . Tanah
-        JenisTanah              =includelayout.findViewById(R.id.jenis_tanah_review);
-        LetakTanah              =includelayout.findViewById(R.id.letak_tanah_review);
-        LebarDepan              =includelayout.findViewById(R.id.lebar_depan_review);
-        Topografi               =includelayout.findViewById(R.id.topografi_review);
-        TinggiPermukaan         =includelayout.findViewById(R.id.tinggi_permukaan_review);
-        LebarJalanDepan         =includelayout.findViewById(R.id.lebar_jalan_depan_review);
-        JenisPerkerasanJalan    =includelayout.findViewById(R.id.jenis_perkerasan_jalan_review);
-        KondisiJalan            =includelayout.findViewById(R.id.kondisi_jalan_review);
-        LingkunganSekitar       =includelayout.findViewById(R.id.lingkungan_sekitar_review);
-        BentukTapakTanah        =includelayout.findViewById(R.id.bentuk_tapak_tanah_review);
-        LuasTanah               =includelayout.findViewById(R.id.luas_tanah_review);
-        LegalitasDokumenTanah   =includelayout.findViewById(R.id.legalitas_dokumen_tanah_review);
+        JenisTanah = includelayout.findViewById(R.id.jenis_tanah_review);
+        LetakTanah = includelayout.findViewById(R.id.letak_tanah_review);
+        LebarDepan = includelayout.findViewById(R.id.lebar_depan_review);
+        Topografi = includelayout.findViewById(R.id.topografi_review);
+        TinggiPermukaan = includelayout.findViewById(R.id.tinggi_permukaan_review);
+        LebarJalanDepan = includelayout.findViewById(R.id.lebar_jalan_depan_review);
+        JenisPerkerasanJalan = includelayout.findViewById(R.id.jenis_perkerasan_jalan_review);
+        KondisiJalan = includelayout.findViewById(R.id.kondisi_jalan_review);
+        LingkunganSekitar = includelayout.findViewById(R.id.lingkungan_sekitar_review);
+        BentukTapakTanah = includelayout.findViewById(R.id.bentuk_tapak_tanah_review);
+        LuasTanah = includelayout.findViewById(R.id.luas_tanah_review);
+        LegalitasDokumenTanah = includelayout.findViewById(R.id.legalitas_dokumen_tanah_review);
         //B.Bangunan
-        TipeBangunan        =includelayout.findViewById(R.id.tipe_bangunan_review);
-        JumlahLantai        =includelayout.findViewById(R.id.jumlah_lantai_review);
-        JarakDindingKejalan =includelayout.findViewById(R.id.jarak_dinding_kejalan_review);
-        FungsiBangunan      =includelayout.findViewById(R.id.fungsi_bangunan_review);
-        LuasBangunan        =includelayout.findViewById(R.id.luas_bangunan_review);
-        TahunDibangun       =includelayout.findViewById(R.id.tahun_dibangun_review);
-        LegalitasBangunan   =includelayout.findViewById(R.id.legalitas_bangunan_review);
-        TahunRenovasi       =includelayout.findViewById(R.id.tahun_renovasi_review);
+        TipeBangunan = includelayout.findViewById(R.id.tipe_bangunan_review);
+        JumlahLantai = includelayout.findViewById(R.id.jumlah_lantai_review);
+        JarakDindingKejalan = includelayout.findViewById(R.id.jarak_dinding_kejalan_review);
+        FungsiBangunan = includelayout.findViewById(R.id.fungsi_bangunan_review);
+        LuasBangunan = includelayout.findViewById(R.id.luas_bangunan_review);
+        TahunDibangun = includelayout.findViewById(R.id.tahun_dibangun_review);
+        LegalitasBangunan = includelayout.findViewById(R.id.legalitas_bangunan_review);
+        TahunRenovasi = includelayout.findViewById(R.id.tahun_renovasi_review);
 
         //C.Spesifikasi Bangunan
-        Pondasi                 = includelayout.findViewById(R.id.pondasi_review);
-        Struktur                = includelayout.findViewById(R.id.struktur_review);
-        RangkaAtap              = includelayout.findViewById(R.id.rangka_atap_review);
-        PenutupAtap             = includelayout.findViewById(R.id.penutup_atap_review);
-        Plafon                  = includelayout.findViewById(R.id.plafon_review);
-        Dinding                 = includelayout.findViewById(R.id.dinding_review);
-        PintuJendela            = includelayout.findViewById(R.id.pintu_jendela_review);
-        Lantai                  = includelayout.findViewById(R.id.lantai_review);
-        KapasitasListrik        = includelayout.findViewById(R.id.kapasitas_listrik_review);
-        SumberAirBersih         = includelayout.findViewById(R.id.sumber_air_bersih_review);
-        Telephone               = includelayout.findViewById(R.id.telephone_review);
-        AirConditioning         = includelayout.findViewById(R.id.air_conditioning_review);
+        Pondasi = includelayout.findViewById(R.id.pondasi_review);
+        Struktur = includelayout.findViewById(R.id.struktur_review);
+        RangkaAtap = includelayout.findViewById(R.id.rangka_atap_review);
+        PenutupAtap = includelayout.findViewById(R.id.penutup_atap_review);
+        Plafon = includelayout.findViewById(R.id.plafon_review);
+        Dinding = includelayout.findViewById(R.id.dinding_review);
+        PintuJendela = includelayout.findViewById(R.id.pintu_jendela_review);
+        Lantai = includelayout.findViewById(R.id.lantai_review);
+        KapasitasListrik = includelayout.findViewById(R.id.kapasitas_listrik_review);
+        SumberAirBersih = includelayout.findViewById(R.id.sumber_air_bersih_review);
+        Telephone = includelayout.findViewById(R.id.telephone_review);
+        AirConditioning = includelayout.findViewById(R.id.air_conditioning_review);
 
         //D.Sarana
-        Pagar                   = includelayout.findViewById(R.id.pagar_review);
-        Perkerasan              = includelayout.findViewById(R.id.perkerasan_review);
-        Kanopi                  = includelayout.findViewById(R.id.kanopi_review);
+        Pagar = includelayout.findViewById(R.id.pagar_review);
+        Perkerasan = includelayout.findViewById(R.id.perkerasan_review);
+        Kanopi = includelayout.findViewById(R.id.kanopi_review);
 
         //E.Keterangan
-        KeteranganLainnya       = includelayout.findViewById(R.id.keterangan_lainnya_review);
+        KeteranganLainnya = includelayout.findViewById(R.id.keterangan_lainnya_review);
 
 
         //Submit Button
-        back    = findViewById(R.id.Back_Review);
+        back = findViewById(R.id.Back_Review);
         back.setOnClickListener(v -> {
             startActivity(new Intent(Review.this, infoProperti2.class));
         });
         submit = findViewById(R.id.SubmitData);
 
         DAODatprop dao = new DAODatprop();
-        dtp_edit    = (Datprop) getIntent().getSerializableExtra("EDIT");
-        if (dtp_edit !=null)
-        {
+        dtp_edit = (Datprop) getIntent().getSerializableExtra("EDIT");
+        if (dtp_edit != null) {
             submit.setText("UPDATE");
             back.setText("CANCEL");
             back.setOnClickListener(v -> {
@@ -326,8 +312,7 @@ public class Review extends AppCompatActivity{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             submit.setText("SUBMIT");
             //getLocation();
         }
@@ -335,7 +320,7 @@ public class Review extends AppCompatActivity{
         submit.setOnClickListener(v -> {
             savedata();
             Datprop dtp = new Datprop(Alamat.getText().toString(), PilihProp.getText().toString(), Koordinat.getText().toString(), timestamp.toString());
-            if (dtp_edit == null){
+            if (dtp_edit == null) {
                 dao.add(dtp)
                         .addOnSuccessListener(unused -> {
                             Toast.makeText(Review.this, "Submitted", Toast.LENGTH_SHORT).show();
@@ -343,19 +328,18 @@ public class Review extends AppCompatActivity{
                         })
                         .addOnFailureListener(e ->
                                 Toast.makeText(Review.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show());
-            }
-            else {
+            } else {
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("alamat", Alamat.getText().toString());
                 hashMap.put("koordinat", Koordinat.getText().toString());
                 hashMap.put("jenisProp", PilihProp.getText().toString());
                 updateData();
 
-                dao.update(dtp_edit.getKey(), hashMap).addOnSuccessListener(suc->{
+                dao.update(dtp_edit.getKey(), hashMap).addOnSuccessListener(suc -> {
                     Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
                     finish();
-                }).addOnFailureListener(er->{
-                    Toast.makeText(this, ""+er.getMessage(), Toast.LENGTH_SHORT).show();
+                }).addOnFailureListener(er -> {
+                    Toast.makeText(this, "" + er.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
             }
@@ -379,7 +363,7 @@ public class Review extends AppCompatActivity{
         final String provinsi = Provinsi.getText().toString().trim();
 
         //Tanggal
-        final String Timestamp  = timeid.getText().toString();
+        final String Timestamp = timeid.getText().toString();
 
         //informasi Kondisi Penawaran
         final String jenisproperti = PilihProp.getText().toString().trim();
@@ -513,37 +497,40 @@ public class Review extends AppCompatActivity{
         informasilokasi.set(userdata).addOnSuccessListener(aVoid -> Log.d("TAG", "User Data submitted"));
         uploadImage();
     }
-    public void uploadImage(){
+
+    public void uploadImage() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        final String Timestamp  = timeid.getText().toString();
+        final String Timestamp = timeid.getText().toString();
         final String alamat = Alamat.getText().toString().trim();
 
-        final String fotodepan  = alamat + "_" + "_fotodepan" + Timestamp;
-        final String fotojalan  = alamat + "_" + "fotojalan" + Timestamp;
-        final String fotodalam  = alamat + "_" + "fotodalam" + Timestamp;
-        final String fotodijual  = alamat + "_" + "fotodijual" + Timestamp;
-        final String fotolain  = alamat + "_" + "fotolain" + Timestamp;
-        final String fotolain2  = alamat + "_" + "fotolain2" + Timestamp;
+        final String fotodepan = alamat + "_" + "_fotodepan" + Timestamp;
+        final String fotojalan = alamat + "_" + "fotojalan" + Timestamp;
+        final String fotodalam = alamat + "_" + "fotodalam" + Timestamp;
+        final String fotodijual = alamat + "_" + "fotodijual" + Timestamp;
+        final String fotolain = alamat + "_" + "fotolain" + Timestamp;
+        final String fotolain2 = alamat + "_" + "fotolain2" + Timestamp;
 
-        StorageReference fotodepancl   = sStore.child(email).child(alamat).child(fotodepan);
-        StorageReference fotojalancl   = sStore.child(email).child(alamat).child(fotojalan);
-        StorageReference fotodalamcl   = sStore.child(email).child(alamat).child(fotodalam);
-        StorageReference fotodijualcl   = sStore.child(email).child(alamat).child(fotodijual);
-        StorageReference fotolaincl   = sStore.child(email).child(alamat).child(fotolain);
-        StorageReference fotolaincl2   = sStore.child(email).child(alamat).child(fotolain2);
+        StorageReference fotodepancl = sStore.child(email).child(alamat).child(fotodepan);
+        StorageReference fotojalancl = sStore.child(email).child(alamat).child(fotojalan);
+        StorageReference fotodalamcl = sStore.child(email).child(alamat).child(fotodalam);
+        StorageReference fotodijualcl = sStore.child(email).child(alamat).child(fotodijual);
+        StorageReference fotolaincl = sStore.child(email).child(alamat).child(fotolain);
+        StorageReference fotolaincl2 = sStore.child(email).child(alamat).child(fotolain2);
 
 
-        ByteArrayOutputStream stream    = new ByteArrayOutputStream();
-        if (fotodepanthm!=null){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        if (fotodepanthm != null) {
             fotodepanthm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] b = stream.toByteArray();
             fotodepancl.putBytes(b)
                     .addOnSuccessListener(taskSnapshot -> {
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> { Uri downloadUri = uri; });
-                        fotodepanuri    = fotodepancl.getDownloadUrl();
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> {
+                            Uri downloadUri = uri;
+                        });
+                        fotodepanuri = fotodepancl.getDownloadUrl();
                         Toast.makeText(Review.this, "Foto Berhasil di Upload", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
@@ -551,15 +538,17 @@ public class Review extends AppCompatActivity{
                         Toast.makeText(Review.this, "", Toast.LENGTH_SHORT).show();
                     });
         }
-        if (fotojalanthm!=null){
+        if (fotojalanthm != null) {
             fotojalanthm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] b = stream.toByteArray();
             fotojalancl.putBytes(b)
                     .addOnSuccessListener(taskSnapshot -> {
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> { Uri downloadUri = uri; });
-                        fotojalanuri    = fotojalancl.getDownloadUrl();
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> {
+                            Uri downloadUri = uri;
+                        });
+                        fotojalanuri = fotojalancl.getDownloadUrl();
                         Toast.makeText(Review.this, "Foto Berhasil di Upload", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
@@ -568,15 +557,17 @@ public class Review extends AppCompatActivity{
                     });
 
         }
-        if (fotodalamthm!=null){
+        if (fotodalamthm != null) {
             byte[] b = stream.toByteArray();
             fotodalamthm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             fotodalamcl.putBytes(b)
                     .addOnSuccessListener(taskSnapshot -> {
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> { Uri downloadUri = uri; });
-                        fotodalamuri    = fotodalamcl.getDownloadUrl();
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> {
+                            Uri downloadUri = uri;
+                        });
+                        fotodalamuri = fotodalamcl.getDownloadUrl();
                         Toast.makeText(Review.this, "Foto Berhasil di Upload", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
@@ -584,15 +575,17 @@ public class Review extends AppCompatActivity{
                         Toast.makeText(Review.this, "", Toast.LENGTH_SHORT).show();
                     });
         }
-        if (fotodijualthm!=null){
+        if (fotodijualthm != null) {
             fotodijualthm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] b = stream.toByteArray();
             fotodijualcl.putBytes(b)
                     .addOnSuccessListener(taskSnapshot -> {
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> { Uri downloadUri = uri; });
-                        fotodijualuri    = fotodijualcl.getDownloadUrl();
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> {
+                            Uri downloadUri = uri;
+                        });
+                        fotodijualuri = fotodijualcl.getDownloadUrl();
                         Toast.makeText(Review.this, "Foto Berhasil di Upload", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
@@ -600,15 +593,17 @@ public class Review extends AppCompatActivity{
                         Toast.makeText(Review.this, "", Toast.LENGTH_SHORT).show();
                     });
         }
-        if (fotolainthm!=null){
+        if (fotolainthm != null) {
             fotolainthm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] b = stream.toByteArray();
             fotolaincl.putBytes(b)
                     .addOnSuccessListener(taskSnapshot -> {
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> { Uri downloadUri = uri; });
-                        fotolainuri    = fotolaincl.getDownloadUrl();
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> {
+                            Uri downloadUri = uri;
+                        });
+                        fotolainuri = fotolaincl.getDownloadUrl();
                         Toast.makeText(Review.this, "Foto Berhasil di Upload", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
@@ -616,15 +611,17 @@ public class Review extends AppCompatActivity{
                         Toast.makeText(Review.this, "", Toast.LENGTH_SHORT).show();
                     });
         }
-        if (fotolainthm2!=null){
+        if (fotolainthm2 != null) {
             fotolainthm2.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] b = stream.toByteArray();
             fotolaincl2.putBytes(b)
                     .addOnSuccessListener(taskSnapshot -> {
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> { Uri downloadUri = uri; });
-                        fotolainuri2    = fotolaincl2.getDownloadUrl();
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(uri -> {
+                            Uri downloadUri = uri;
+                        });
+                        fotolainuri2 = fotolaincl2.getDownloadUrl();
                         Toast.makeText(Review.this, "Foto Berhasil di Upload", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
@@ -652,7 +649,7 @@ public class Review extends AppCompatActivity{
         final String provinsi = Provinsi.getText().toString().trim();
 
         //Tanggal
-        timestampkey   = String.valueOf(dtp_edit.getTimestamp());
+        timestampkey = String.valueOf(dtp_edit.getTimestamp());
 
         //informasi Kondisi Penawaran
         final String jenisproperti = PilihProp.getText().toString().trim();
@@ -788,121 +785,121 @@ public class Review extends AppCompatActivity{
     }
 
     private void getData() throws IOException {
-        timestampkey   = String.valueOf(dtp_edit.getTimestamp());
+        timestampkey = String.valueOf(dtp_edit.getTimestamp());
         DocumentReference userdata = fStore.collection(String.valueOf(email)).document("userdata").collection("input").document(timestampkey);
 
         userdata.get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()){
+                    if (documentSnapshot.exists()) {
                         // Informasi Lokasi
-                        String desa         = documentSnapshot.getString(KEY_DESA);
+                        String desa = documentSnapshot.getString(KEY_DESA);
                         Desa.setText(desa);
-                        String kelurahan    = documentSnapshot.getString(KEY_KELURAHAN);
+                        String kelurahan = documentSnapshot.getString(KEY_KELURAHAN);
                         Kelurahan.setText(kelurahan);
-                        String kecamatan    = documentSnapshot.getString(KEY_KECAMATAN);
+                        String kecamatan = documentSnapshot.getString(KEY_KECAMATAN);
                         Kecamatan.setText(kecamatan);
-                        String kabupaten    = documentSnapshot.getString(KEY_KABUPATEN);
+                        String kabupaten = documentSnapshot.getString(KEY_KABUPATEN);
                         Kabupaten.setText(kabupaten);
-                        String kota         = documentSnapshot.getString(KEY_KOTA);
+                        String kota = documentSnapshot.getString(KEY_KOTA);
                         Kota.setText(kota);
-                        String provinsi     = documentSnapshot.getString(KEY_PROVINSI);
+                        String provinsi = documentSnapshot.getString(KEY_PROVINSI);
                         Provinsi.setText(provinsi);
 
                         // Informasi Jual Sewa
                         String kondisipenawaran = documentSnapshot.getString(KEY_KONDPEN);
                         KondisiPen.setText(kondisipenawaran);
-                        String harga            = documentSnapshot.getString(KEY_HARGAPEN);
+                        String harga = documentSnapshot.getString(KEY_HARGAPEN);
                         HargaPen.setText(harga);
-                        String mulaidit         = documentSnapshot.getString(KEY_MULAIDIT);
+                        String mulaidit = documentSnapshot.getString(KEY_MULAIDIT);
                         MulaiDit.setText(mulaidit);
-                        String namasumberdata   = documentSnapshot.getString(KEY_NAMASUMBER);
+                        String namasumberdata = documentSnapshot.getString(KEY_NAMASUMBER);
                         NamaSumber.setText(namasumberdata);
-                        String telepon          = documentSnapshot.getString(KEY_TELEPON);
+                        String telepon = documentSnapshot.getString(KEY_TELEPON);
                         Telepon.setText(telepon);
 
                         // Informasi Properti
                         // A.
-                        String jenistanah       = documentSnapshot.getString(KEY_JENISTAN);
+                        String jenistanah = documentSnapshot.getString(KEY_JENISTAN);
                         JenisTanah.setText(jenistanah);
-                        String letaktanah       = documentSnapshot.getString(KEY_LEPOTAN);
+                        String letaktanah = documentSnapshot.getString(KEY_LEPOTAN);
                         LetakTanah.setText(letaktanah);
-                        String lebardepan       = documentSnapshot.getString(KEY_LEDEMUKA);
+                        String lebardepan = documentSnapshot.getString(KEY_LEDEMUKA);
                         LebarDepan.setText(lebardepan);
-                        String topografi        = documentSnapshot.getString(KEY_TOPOGRAF);
+                        String topografi = documentSnapshot.getString(KEY_TOPOGRAF);
                         Topografi.setText(topografi);
-                        String tinggipermukaan  = documentSnapshot.getString(KEY_ELEVASI);
+                        String tinggipermukaan = documentSnapshot.getString(KEY_ELEVASI);
                         TinggiPermukaan.setText(tinggipermukaan);
-                        String lebarjalandepan  = documentSnapshot.getString(KEY_LEBJADE);
+                        String lebarjalandepan = documentSnapshot.getString(KEY_LEBJADE);
                         LebarJalanDepan.setText(lebarjalandepan);
-                        String jenisperkerasan  = documentSnapshot.getString(KEY_JENPERJ);
+                        String jenisperkerasan = documentSnapshot.getString(KEY_JENPERJ);
                         JenisPerkerasanJalan.setText(jenisperkerasan);
-                        String kondisijalan     = documentSnapshot.getString(KEY_KONDJALA);
+                        String kondisijalan = documentSnapshot.getString(KEY_KONDJALA);
                         KondisiJalan.setText(kondisijalan);
-                        String lingkungansekit  = documentSnapshot.getString(KEY_LINGSEKI);
+                        String lingkungansekit = documentSnapshot.getString(KEY_LINGSEKI);
                         LingkunganSekitar.setText(lingkungansekit);
-                        String bentuktapaktana  = documentSnapshot.getString(KEY_BENTUKTAPA);
+                        String bentuktapaktana = documentSnapshot.getString(KEY_BENTUKTAPA);
                         BentukTapakTanah.setText(bentuktapaktana);
-                        String luastanah        = documentSnapshot.getString(KEY_LUASTAN);
+                        String luastanah = documentSnapshot.getString(KEY_LUASTAN);
                         LuasTanah.setText(luastanah);
-                        String legalitastanah   = documentSnapshot.getString(KEY_LEGALITAS);
+                        String legalitastanah = documentSnapshot.getString(KEY_LEGALITAS);
                         LegalitasDokumenTanah.setText(legalitastanah);
                         //B.
-                        String tipebang         = documentSnapshot.getString(KEY_TIPEBAN);
+                        String tipebang = documentSnapshot.getString(KEY_TIPEBAN);
                         TipeBangunan.setText(tipebang);
-                        String jumlahlan        = documentSnapshot.getString(KEY_JUMLALA);
+                        String jumlahlan = documentSnapshot.getString(KEY_JUMLALA);
                         JumlahLantai.setText(jumlahlan);
-                        String jarakdin         = documentSnapshot.getString(KEY_JARDINTE);
+                        String jarakdin = documentSnapshot.getString(KEY_JARDINTE);
                         JarakDindingKejalan.setText(jarakdin);
-                        String fungsibang       = documentSnapshot.getString(KEY_FUNGBANG);
+                        String fungsibang = documentSnapshot.getString(KEY_FUNGBANG);
                         FungsiBangunan.setText(fungsibang);
-                        String luasbang         = documentSnapshot.getString(KEY_LUASBANG);
+                        String luasbang = documentSnapshot.getString(KEY_LUASBANG);
                         LuasBangunan.setText(luasbang);
-                        String tahundibang      = documentSnapshot.getString(KEY_TAHUNDIBAN);
+                        String tahundibang = documentSnapshot.getString(KEY_TAHUNDIBAN);
                         TahunDibangun.setText(tahundibang);
-                        String imb              = documentSnapshot.getString(KEY_IMB);
+                        String imb = documentSnapshot.getString(KEY_IMB);
                         LegalitasBangunan.setText(imb);
-                        String tahunrenov       = documentSnapshot.getString(KEY_TAHUNRENOV);
+                        String tahunrenov = documentSnapshot.getString(KEY_TAHUNRENOV);
                         TahunRenovasi.setText(tahunrenov);
                         //C.
-                        String pondasi          = documentSnapshot.getString(KEY_PONDASI);
+                        String pondasi = documentSnapshot.getString(KEY_PONDASI);
                         Pondasi.setText(pondasi);
-                        String struktur         = documentSnapshot.getString(KEY_STRUKTUR);
+                        String struktur = documentSnapshot.getString(KEY_STRUKTUR);
                         Struktur.setText(struktur);
-                        String rangkaatap       = documentSnapshot.getString(KEY_RANGKAATAP);
+                        String rangkaatap = documentSnapshot.getString(KEY_RANGKAATAP);
                         RangkaAtap.setText(rangkaatap);
-                        String penutupatap      = documentSnapshot.getString(KEY_PENUTUPAT);
+                        String penutupatap = documentSnapshot.getString(KEY_PENUTUPAT);
                         PenutupAtap.setText(penutupatap);
-                        String plafon           = documentSnapshot.getString(KEY_PLAFON);
+                        String plafon = documentSnapshot.getString(KEY_PLAFON);
                         Plafon.setText(plafon);
-                        String dinding          = documentSnapshot.getString(KEY_DINDING);
+                        String dinding = documentSnapshot.getString(KEY_DINDING);
                         Dinding.setText(dinding);
-                        String pintudanjendela  = documentSnapshot.getString(KEY_PINTUJEN);
+                        String pintudanjendela = documentSnapshot.getString(KEY_PINTUJEN);
                         PintuJendela.setText(pintudanjendela);
-                        String lantai           = documentSnapshot.getString(KEY_LANTAI);
+                        String lantai = documentSnapshot.getString(KEY_LANTAI);
                         Lantai.setText(lantai);
                         String kapasitaslistrik = documentSnapshot.getString(KEY_KAPLISTRIK);
                         KapasitasListrik.setText(kapasitaslistrik);
-                        String sumberairbersih  = documentSnapshot.getString(KEY_SUMBERAIRB);
+                        String sumberairbersih = documentSnapshot.getString(KEY_SUMBERAIRB);
                         SumberAirBersih.setText(sumberairbersih);
-                        String telephone        = documentSnapshot.getString(KEY_TELEPHONE);
+                        String telephone = documentSnapshot.getString(KEY_TELEPHONE);
                         Telephone.setText(telephone);
-                        String airconditioning  = documentSnapshot.getString(KEY_AC);
+                        String airconditioning = documentSnapshot.getString(KEY_AC);
                         AirConditioning.setText(airconditioning);
                         //D.
-                        String pagar            = documentSnapshot.getString(KEY_PAGAR);
+                        String pagar = documentSnapshot.getString(KEY_PAGAR);
                         Pagar.setText(pagar);
-                        String perkerasan       = documentSnapshot.getString(KEY_PERKERASAN);
+                        String perkerasan = documentSnapshot.getString(KEY_PERKERASAN);
                         Perkerasan.setText(perkerasan);
-                        String kanopi           = documentSnapshot.getString(KEY_KANOPI);
+                        String kanopi = documentSnapshot.getString(KEY_KANOPI);
                         Kanopi.setText(kanopi);
                         //E.
-                        String keteranganlain   = documentSnapshot.getString(KEY_KETERLAINN);
+                        String keteranganlain = documentSnapshot.getString(KEY_KETERLAINN);
                         KeteranganLainnya.setText(keteranganlain);
                         //F. Foto
-                        String fotodepan        = documentSnapshot.getString(KEY_FOTODEPAN);
-                        String fotodalam        = documentSnapshot.getString(KEY_FOTODALAM);
-                        String fotodijual       = documentSnapshot.getString(KEY_FOTODIJUAL);
-                        String fotojalan        = documentSnapshot.getString(KEY_FOTOJALAN);
+                        String fotodepan = documentSnapshot.getString(KEY_FOTODEPAN);
+                        String fotodalam = documentSnapshot.getString(KEY_FOTODALAM);
+                        String fotodijual = documentSnapshot.getString(KEY_FOTODIJUAL);
+                        String fotojalan = documentSnapshot.getString(KEY_FOTOJALAN);
 
 
                         Toast.makeText(Review.this, "Success", Toast.LENGTH_SHORT).show();
@@ -913,33 +910,34 @@ public class Review extends AppCompatActivity{
         //getImage();
 
     }
+
     public void getImage() throws IOException {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-        final String Timestamp  = String.valueOf(dtp_edit.getTimestamp());
+        final String Timestamp = String.valueOf(dtp_edit.getTimestamp());
         final String alamat = String.valueOf(dtp_edit.getAlamat());
 
-        final String fotodepannm  = alamat + "_" + "_fotodepan" + Timestamp;
-        final String fotojalannm  = alamat + "_" + "fotojalan" + Timestamp;
-        final String fotodalamnm  = alamat + "_" + "fotodalam" + Timestamp;
-        final String fotodijualnm  = alamat + "_" + "fotodijual" + Timestamp;
-        final String fotolainnm  = alamat + "_" + "fotolain" + Timestamp;
-        final String fotolain2nm  = alamat + "_" + "fotolain2" + Timestamp;
+        final String fotodepannm = alamat + "_" + "_fotodepan" + Timestamp;
+        final String fotojalannm = alamat + "_" + "fotojalan" + Timestamp;
+        final String fotodalamnm = alamat + "_" + "fotodalam" + Timestamp;
+        final String fotodijualnm = alamat + "_" + "fotodijual" + Timestamp;
+        final String fotolainnm = alamat + "_" + "fotolain" + Timestamp;
+        final String fotolain2nm = alamat + "_" + "fotolain2" + Timestamp;
 
-        StorageReference fotodepancl   = sStore.child(email).child(alamat).child(fotodepannm);
-        StorageReference fotojalancl   = sStore.child(email).child(alamat).child(fotojalannm);
-        StorageReference fotodalamcl   = sStore.child(email).child(alamat).child(fotodalamnm);
-        StorageReference fotodijualcl   = sStore.child(email).child(alamat).child(fotodijualnm);
-        StorageReference fotolaincl   = sStore.child(email).child(alamat).child(fotolainnm);
-        StorageReference fotolaincl2   = sStore.child(email).child(alamat).child(fotolain2nm);
+        StorageReference fotodepancl = sStore.child(email).child(alamat).child(fotodepannm);
+        StorageReference fotojalancl = sStore.child(email).child(alamat).child(fotojalannm);
+        StorageReference fotodalamcl = sStore.child(email).child(alamat).child(fotodalamnm);
+        StorageReference fotodijualcl = sStore.child(email).child(alamat).child(fotodijualnm);
+        StorageReference fotolaincl = sStore.child(email).child(alamat).child(fotolainnm);
+        StorageReference fotolaincl2 = sStore.child(email).child(alamat).child(fotolain2nm);
 
         File localFotoDepan = File.createTempFile(fotodepannm, "jpg");
         fotodepancl.getFile(localFotoDepan)
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Bitmap fotodepanbtmp    = BitmapFactory.decodeFile(localFotoDepan.getAbsolutePath());
+                        Bitmap fotodepanbtmp = BitmapFactory.decodeFile(localFotoDepan.getAbsolutePath());
                         fotodepan.setImageBitmap(fotodepanbtmp);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -953,7 +951,7 @@ public class Review extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Bitmap fotojalanbtmp    = BitmapFactory.decodeFile(localFotoJalan.getAbsolutePath());
+                        Bitmap fotojalanbtmp = BitmapFactory.decodeFile(localFotoJalan.getAbsolutePath());
                         fotojalan.setImageBitmap(fotojalanbtmp);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -967,7 +965,7 @@ public class Review extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Bitmap fotodalambtmp    = BitmapFactory.decodeFile(localFotoDalam.getAbsolutePath());
+                        Bitmap fotodalambtmp = BitmapFactory.decodeFile(localFotoDalam.getAbsolutePath());
                         fotodalam.setImageBitmap(fotodalambtmp);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -981,7 +979,7 @@ public class Review extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Bitmap fotodijualbtmp    = BitmapFactory.decodeFile(localFotoDijual.getAbsolutePath());
+                        Bitmap fotodijualbtmp = BitmapFactory.decodeFile(localFotoDijual.getAbsolutePath());
                         fotodijual.setImageBitmap(fotodijualbtmp);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -995,7 +993,7 @@ public class Review extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Bitmap fotolainbtmp    = BitmapFactory.decodeFile(localFotoLain.getAbsolutePath());
+                        Bitmap fotolainbtmp = BitmapFactory.decodeFile(localFotoLain.getAbsolutePath());
                         fotolain.setImageBitmap(fotolainbtmp);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -1009,7 +1007,7 @@ public class Review extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Bitmap fotolainbtmp    = BitmapFactory.decodeFile(localFotoLain2.getAbsolutePath());
+                        Bitmap fotolainbtmp = BitmapFactory.decodeFile(localFotoLain2.getAbsolutePath());
                         fotolain2.setImageBitmap(fotolainbtmp);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -1021,55 +1019,55 @@ public class Review extends AppCompatActivity{
     }
 
     private void takePhotoFromCamera() {
-        Intent camera   = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camera, CAMERA);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_CANCELED){
+        if (resultCode == RESULT_CANCELED) {
             return;
         }
-        switch (clickImage){
+        switch (clickImage) {
             case 1:
-                if (requestCode == CAMERA){
-                    fotodepanthm  = (Bitmap) data.getExtras().get("data");
+                if (requestCode == CAMERA) {
+                    fotodepanthm = (Bitmap) data.getExtras().get("data");
                     fotodepan.setImageBitmap(fotodepanthm);
                     saveImage(fotodepanthm);
                 }
                 break;
             case 2:
-                if (requestCode == CAMERA){
-                    fotojalanthm  = (Bitmap) data.getExtras().get("data");
+                if (requestCode == CAMERA) {
+                    fotojalanthm = (Bitmap) data.getExtras().get("data");
                     fotojalan.setImageBitmap(fotojalanthm);
                     saveImage(fotojalanthm);
                 }
                 break;
             case 3:
-                if (requestCode == CAMERA){
-                    fotodalamthm  = (Bitmap) data.getExtras().get("data");
+                if (requestCode == CAMERA) {
+                    fotodalamthm = (Bitmap) data.getExtras().get("data");
                     fotodalam.setImageBitmap(fotodalamthm);
                     saveImage(fotodalamthm);
                 }
                 break;
             case 4:
-                if (requestCode == CAMERA){
-                    fotodijualthm  = (Bitmap) data.getExtras().get("data");
+                if (requestCode == CAMERA) {
+                    fotodijualthm = (Bitmap) data.getExtras().get("data");
                     fotodijual.setImageBitmap(fotodijualthm);
                     saveImage(fotodijualthm);
                 }
                 break;
             case 5:
-                if (requestCode == CAMERA){
-                    fotolainthm  = (Bitmap) data.getExtras().get("data");
+                if (requestCode == CAMERA) {
+                    fotolainthm = (Bitmap) data.getExtras().get("data");
                     fotolain.setImageBitmap(fotolainthm);
                     saveImage(fotolainthm);
                 }
                 break;
             case 6:
-                if (requestCode == CAMERA){
-                    fotolainthm2  = (Bitmap) data.getExtras().get("data");
+                if (requestCode == CAMERA) {
+                    fotolainthm2 = (Bitmap) data.getExtras().get("data");
                     fotolain2.setImageBitmap(fotolainthm2);
                     saveImage(fotolainthm2);
                 }
@@ -1106,12 +1104,13 @@ public class Review extends AppCompatActivity{
         return "";
     }
 
+
 /*    private void getLocation() {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
+
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
                 //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
